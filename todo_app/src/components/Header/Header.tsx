@@ -3,14 +3,21 @@ import {addTask} from '../../redux/todoSlice';
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
+import {addTodoDB} from '../../supabase/TodoApi';
 
 type Props = {};
 
 const Header: React.FC<Props> = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (text: string) => {
-    dispatch(addTask({text}));
+  const handleSubmit = async (text: string) => {
+    try {
+      const response = await addTodoDB(text);
+      const {task} = response.data;
+      dispatch(addTask(task));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

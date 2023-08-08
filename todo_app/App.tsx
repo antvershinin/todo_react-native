@@ -1,7 +1,7 @@
 import {StyleSheet, SafeAreaView} from 'react-native';
 import Header from './src/components/Header/Header';
 import store from './src/redux/store';
-import {Provider} from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import ToDoList from './src/components/TodoList/TodoList';
 import Toolbar from './src/components/Toolbar/Toolbar';
 

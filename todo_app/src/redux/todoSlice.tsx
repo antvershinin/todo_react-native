@@ -1,5 +1,4 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {nanoid} from '@reduxjs/toolkit';
 
 export interface ITask {
   id: string;
@@ -21,30 +20,33 @@ const todoSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<{text: string}>) => {
-      if (!action.payload.text.trim()) return;
-      const newTask = {
-        id: nanoid(5),
-        text: action.payload.text,
-        completed: false,
-      };
-      state.tasks.unshift(newTask);
+    fillState: (state, action: PayloadAction<ITask[]>) => {
+      state.tasks = action.payload;
+      console.log(state.tasks);
     },
     markComplete: (state, action: PayloadAction<{id: string}>) => {
-      state.tasks.forEach(el => {
-        if (el.id !== action.payload.id) return el;
-        el.completed = !el.completed;
-      });
+      const task = state.tasks.find(el => el.id === action.payload.id);
+
+      if (!task) {
+        return;
+      }
+
+      task.completed = !task.completed;
+    },
+    addTask: (state, action: PayloadAction<ITask>) => {
+      state.tasks.push(action.payload);
+      console.log(action.payload);
     },
     deleteTask: (state, action: PayloadAction<{id: string}>) => {
       state.tasks = state.tasks.filter(el => el.id !== action.payload.id);
     },
 
     changeText: (state, action: PayloadAction<{id: string; text: string}>) => {
-      state.tasks.forEach(el => {
-        if (el.id !== action.payload.id) return el;
-        el.text = action.payload.text;
-      });
+      const task = state.tasks.find(el => el.id === action.payload.id);
+
+      if (!task) return;
+
+      task.text = action.payload.text;
     },
     completeAll: state => {
       if (state.tasks.length === 0) return;
@@ -61,6 +63,7 @@ const todoSlice = createSlice({
 });
 
 export const {
+  fillState,
   addTask,
   markComplete,
   deleteTask,
