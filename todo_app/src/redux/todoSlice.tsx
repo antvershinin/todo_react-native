@@ -13,7 +13,7 @@ export interface ITaskState {
 
 export const initialState: ITaskState = {
   tasks: [],
-  activeFilter: '',
+  activeFilter: 'all',
 };
 
 const todoSlice = createSlice({
@@ -54,8 +54,8 @@ const todoSlice = createSlice({
     clearAll: state => {
       state.tasks = [];
     },
-    setFilter: (state, action: PayloadAction<{filterName: string}>) => {
-      state.activeFilter = action.payload.filterName;
+    setFilter: (state, action: PayloadAction<string>) => {
+      state.activeFilter = action.payload;
     },
   },
 });

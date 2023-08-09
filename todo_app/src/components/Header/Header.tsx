@@ -1,9 +1,10 @@
 import Form from '../Form/Form';
-import {addTask} from '../../redux/todoSlice';
+import {ITask, addTask} from '../../redux/todoSlice';
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {addTodoDB} from '../../supabase/TodoApi';
+import {PostgrestSingleResponse} from '@supabase/supabase-js';
 
 type Props = {};
 
@@ -12,9 +13,11 @@ const Header: React.FC<Props> = () => {
 
   const handleSubmit = async (text: string) => {
     try {
-      const response = await addTodoDB(text);
-      const newTask = response.data;
-      dispatch(addTask(...newTask));
+      const response: PostgrestSingleResponse<ITask[]> = await addTodoDB(text);
+      if (response.data) {
+        const [newTask] = response.data;
+        dispatch(addTask(newTask));
+      }
     } catch (err) {
       console.log(err);
     }

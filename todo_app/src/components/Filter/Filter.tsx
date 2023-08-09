@@ -10,17 +10,11 @@ const Filter: React.FC<Props> = () => {
 
   return (
     <View style={style.filter}>
-      <Button
-        title="All"
-        onPress={() => dispatch(setFilter({filterName: ''}))}
-      />
-      <Button
-        title="Active"
-        onPress={() => dispatch(setFilter({filterName: 'false'}))}
-      />
+      <Button title="All" onPress={() => dispatch(setFilter('all'))} />
+      <Button title="Active" onPress={() => dispatch(setFilter('active'))} />
       <Button
         title="Completed"
-        onPress={() => dispatch(setFilter({filterName: 'true'}))}
+        onPress={() => dispatch(setFilter('completed'))}
       />
     </View>
   );

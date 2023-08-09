@@ -5,9 +5,10 @@ import Header from './src/components/Header/Header';
 import {useEffect} from 'react';
 import {getTododsDB} from './src/supabase/TodoApi';
 import {useDispatch, useSelector} from 'react-redux';
-import {fillState} from './src/redux/todoSlice';
+import {ITask, fillState} from './src/redux/todoSlice';
 import Filter from './src/components/Filter/Filter';
 import {filterSelect} from './src/redux/selectors';
+import {PostgrestSingleResponse} from '@supabase/supabase-js';
 
 function Main(): JSX.Element {
   const dispatch = useDispatch();
@@ -17,8 +18,12 @@ function Main(): JSX.Element {
   useEffect(() => {
     const getTodos = async () => {
       try {
-        const response = await getTododsDB(filter);
-        dispatch(fillState(response.data));
+        const response: PostgrestSingleResponse<ITask[]> = await getTododsDB(
+          filter,
+        );
+        if (response.data) {
+          dispatch(fillState(response.data));
+        }
       } catch (err) {
         console.log(err);
       }

@@ -15,15 +15,16 @@ const ToDoItem: React.FC<Props> = ({task}) => {
   const [editStatus, setEditStatus] = useState(false);
 
   const dispatch = useDispatch();
+  const {id, text, completed} = task;
 
-  const onSubmitChangeText = async (text: string) => {
+  const onSubmitChangeText = async (newText: string) => {
     try {
       await editTodoDB({
-        id: task.id,
-        completed: task.completed,
-        text,
+        id,
+        completed,
+        text: newText,
       });
-      dispatch(changeText({id: task.id, text}));
+      dispatch(changeText({id, text: newText}));
       setEditStatus(false);
     } catch (err) {
       console.log(err);
@@ -31,12 +32,11 @@ const ToDoItem: React.FC<Props> = ({task}) => {
   };
 
   const onPressComplete = async () => {
-    const id = task.id;
     try {
       await editTodoDB({
-        id: task.id,
-        completed: !task.completed,
-        text: task.text,
+        id,
+        completed: !completed,
+        text,
       });
       dispatch(markComplete({id}));
     } catch (err) {
@@ -45,7 +45,6 @@ const ToDoItem: React.FC<Props> = ({task}) => {
   };
 
   const onPressDelete = async () => {
-    const id = task.id;
     try {
       await deleteTodoDB(id);
       dispatch(deleteTask({id}));

@@ -5,10 +5,12 @@ export const addTodoDB = (text: string) => {
   return supabase.from('todo').insert({text}).select();
 };
 
-export const getTododsDB = (filter?: string) => {
-  if (!filter) {
+export const getTododsDB = (activeFilter: string) => {
+  if (activeFilter === 'all') {
     return supabase.from('todo').select('*');
-  } else return supabase.from('todo').select('*').eq('completed', filter);
+  }
+  const filter = activeFilter === 'active' ? false : true;
+  return supabase.from('todo').select('*').eq('completed', filter);
 };
 
 export const deleteAllTodosDB = () => {
