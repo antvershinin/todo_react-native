@@ -13,8 +13,8 @@ const Header: React.FC<Props> = () => {
   const handleSubmit = async (text: string) => {
     try {
       const response = await addTodoDB(text);
-      const {task} = response.data;
-      dispatch(addTask(task));
+      const newTask = response.data;
+      dispatch(addTask(...newTask));
     } catch (err) {
       console.log(err);
     }

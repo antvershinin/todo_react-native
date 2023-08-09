@@ -18,3 +18,7 @@ export const listByFilter = createSelector(
     return tasks;
   },
 );
+
+export const filterSelect = createSelector([selectFilter], filter => {
+  return filter;
+});

@@ -13,7 +13,7 @@ export interface ITaskState {
 
 export const initialState: ITaskState = {
   tasks: [],
-  activeFilter: 'All',
+  activeFilter: '',
 };
 
 const todoSlice = createSlice({
@@ -22,7 +22,6 @@ const todoSlice = createSlice({
   reducers: {
     fillState: (state, action: PayloadAction<ITask[]>) => {
       state.tasks = action.payload;
-      console.log(state.tasks);
     },
     markComplete: (state, action: PayloadAction<{id: string}>) => {
       const task = state.tasks.find(el => el.id === action.payload.id);
@@ -35,7 +34,6 @@ const todoSlice = createSlice({
     },
     addTask: (state, action: PayloadAction<ITask>) => {
       state.tasks.push(action.payload);
-      console.log(action.payload);
     },
     deleteTask: (state, action: PayloadAction<{id: string}>) => {
       state.tasks = state.tasks.filter(el => el.id !== action.payload.id);

@@ -5,6 +5,7 @@ import {useState} from 'react';
 import React from 'react';
 import {ITask} from '../../redux/todoSlice';
 import {StyleSheet, Text, View} from 'react-native';
+import {deleteTodoDB, editTodoDB} from '../../supabase/TodoApi';
 
 type Props = {
   task: ITask;
@@ -15,20 +16,42 @@ const ToDoItem: React.FC<Props> = ({task}) => {
 
   const dispatch = useDispatch();
 
-  const onSubmitChangeText = (text: string) => {
-    dispatch(changeText({id: task.id, text}));
-
-    setEditStatus(false);
+  const onSubmitChangeText = async (text: string) => {
+    try {
+      await editTodoDB({
+        id: task.id,
+        completed: task.completed,
+        text,
+      });
+      dispatch(changeText({id: task.id, text}));
+      setEditStatus(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const onPressComplete = () => {
+  const onPressComplete = async () => {
     const id = task.id;
-    dispatch(markComplete({id}));
+    try {
+      await editTodoDB({
+        id: task.id,
+        completed: !task.completed,
+        text: task.text,
+      });
+      dispatch(markComplete({id}));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const onPressDelete = () => {
+  const onPressDelete = async () => {
     const id = task.id;
-    dispatch(deleteTask({id}));
+    try {
+      await deleteTodoDB(id);
+      dispatch(deleteTask({id}));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

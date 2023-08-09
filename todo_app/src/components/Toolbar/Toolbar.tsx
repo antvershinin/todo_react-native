@@ -3,21 +3,27 @@ import {completeAll, clearAll, fillState} from '../../redux/todoSlice';
 import React from 'react';
 import {Button, StyleSheet, View} from 'react-native';
 import {listByFilter} from '../../redux/selectors';
-import {deleteAllTodosDB} from '../../supabase/TodoApi';
+import {completeAllTodosDB, deleteAllTodosDB} from '../../supabase/TodoApi';
 
 type Props = {};
 
 const Toolbar: React.FC<Props> = () => {
   const dispatch = useDispatch();
-
-  const onPressCompleteAll = () => {
-    dispatch(completeAll());
+  const tasks = useSelector(listByFilter);
+  const onPressCompleteAll = async () => {
+    const tumbler = tasks.some(el => !el.completed);
+    try {
+      await completeAllTodosDB(tumbler);
+      dispatch(completeAll());
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onPressDeleteAll = async () => {
     try {
-      const response = await deleteAllTodosDB();
-      dispatch(fillState(response.data));
+      await deleteAllTodosDB();
+      dispatch(clearAll());
     } catch (err) {
       console.log(err);
     }
