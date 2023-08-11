@@ -1,16 +1,16 @@
-import ToDoList from './src/components/TodoList/TodoList';
-import Toolbar from './src/components/Toolbar/Toolbar';
+import ToDoList from './components/TodoList/TodoList';
+import Toolbar from './components/Toolbar/Toolbar';
 import {StyleSheet, SafeAreaView} from 'react-native';
-import Header from './src/components/Header/Header';
+import Header from './components/Header/Header';
 import {useEffect} from 'react';
-import {getTododsDB} from './src/supabase/TodoApi';
+import {getTododsDB} from './supabase/TodoApi';
 import {useDispatch, useSelector} from 'react-redux';
-import {ITask, fillState} from './src/redux/todoSlice';
-import Filter from './src/components/Filter/Filter';
-import {filterSelect} from './src/redux/selectors';
+import {ITask, fillState} from './redux/todoSlice';
+import Filter from './components/Filter/Filter';
+import {filterSelect} from './redux/selectors';
 import {PostgrestSingleResponse} from '@supabase/supabase-js';
 
-function Main(): JSX.Element {
+function Todo(): JSX.Element {
   const dispatch = useDispatch();
 
   const filter = useSelector(filterSelect);
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main;
+export default Todo;
