@@ -73,9 +73,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button_operators: {
-    width: '40%',
+    width: '45%',
     flexDirection: 'row',
+    justifyContent: 'center',
     flexWrap: 'wrap',
+    gap: 10,
   },
   buttons_text: {
     color: 'black',

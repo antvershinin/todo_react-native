@@ -1,24 +1,32 @@
-import store from './src/todo/redux/store';
-import {Provider} from 'react-redux';
-import Todo from './src/todo/Todo';
-import Calculator from './src/calculator/Calculator';
+import CalculatorScreen from './src/calculator/CalculatorScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './src/Homescreen';
+import HomeScreen from './src/homescreen/Homescreen';
+import TodoScreen from './src/todo/TodoScreen';
 
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{title: 'Home'}}
+        />
 
-        <Provider store={store}>
-          <Stack.Screen name="Todo" component={Todo} />
-        </Provider>
+        <Stack.Screen
+          name="TodoScreen"
+          component={TodoScreen}
+          options={{title: 'To Do List'}}
+        />
 
-        <Stack.Screen name="Calculator" component={Calculator} />
+        <Stack.Screen
+          name="CalculatorScreen"
+          component={CalculatorScreen}
+          options={{title: 'Calculator'}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

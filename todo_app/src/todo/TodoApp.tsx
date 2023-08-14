@@ -10,7 +10,7 @@ import Filter from './components/Filter/Filter';
 import {filterSelect} from './redux/selectors';
 import {PostgrestSingleResponse} from '@supabase/supabase-js';
 
-function Todo(): JSX.Element {
+function TodoApp(): JSX.Element {
   const dispatch = useDispatch();
 
   const filter = useSelector(filterSelect);
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Todo;
+export default TodoApp;

@@ -20,6 +20,7 @@ const operations = {
 };
 
 export const makeCalculations = arr => {
+  console.log(arr);
   const calculateStack = () => {
     stackNumbers.push(
       operations[stackOperators.pop()](stackNumbers.pop(), stackNumbers.pop()),

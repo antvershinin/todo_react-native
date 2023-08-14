@@ -31,18 +31,18 @@ const styles = StyleSheet.create({
   },
   screen_main: {
     height: '70%',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
     backgroundColor: '#add8e6',
   },
   screen_secondary: {
     height: '30%',
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     backgroundColor: '#add8e6',
   },
   screen_text: {
-    fontSize: 30,
+    fontSize: 35,
   },
 });
 

@@ -24,7 +24,7 @@ export const CalculationProvider = ({
   const fillCurrent = (n: string) => {
     if (operandKeys.includes(n)) {
       if (operatorCheck.length) {
-        expression.push(current);
+        setExpression([...expression, current]);
         operatorCheck = [];
         setCurrent('');
         setCurrent(n);
@@ -34,7 +34,7 @@ export const CalculationProvider = ({
     }
     if (operatorKeys.includes(n)) {
       if (!operatorCheck.length) {
-        expression.push(+current);
+        setExpression([...expression, +current]);
       }
       operatorCheck[0] = n;
       setCurrent(n);
@@ -42,10 +42,9 @@ export const CalculationProvider = ({
   };
 
   const calculate = () => {
-    expression.push(+current);
-    setCurrent('');
-    console.log(expression);
-    setCurrent(makeCalculations(expression));
+    const newExpresson = [...expression, +current];
+    setExpression(newExpresson);
+    setCurrent(makeCalculations(newExpresson));
   };
 
   const value = {expression, fillCurrent, current, calculate};

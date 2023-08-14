@@ -7,7 +7,7 @@ import {CalculationProvider} from './hooks/CalculatorContext';
 
 type Props = {};
 
-const Calculator: React.FC<Props> = props => {
+const CalculatorScreen: React.FC<Props> = props => {
   return (
     <CalculationProvider>
       <SafeAreaView style={styles.calculator}>
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Calculator;
+export default CalculatorScreen;
